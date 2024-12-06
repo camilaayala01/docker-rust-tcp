@@ -1,0 +1,19 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: dockerfile.server
+    container_name: tcp-server
+    networks:
+      - app-network
+  client:
+    build:
+      context: .
+      dockerfile: dockerfile.client
+    container_name: tcp-client
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

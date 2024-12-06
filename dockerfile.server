@@ -1,0 +1,8 @@
+FROM rust:latest
+
+WORKDIR /
+
+COPY ./Cargo.toml ./Cargo.toml
+
+COPY ./server .
+CMD ["cargo","run"]

@@ -1,0 +1,11 @@
+FROM rust:latest
+
+WORKDIR /
+
+COPY ./Cargo.toml ./Cargo.toml
+
+COPY ./client .
+
+CMD ["cargo","run"]
+
+
