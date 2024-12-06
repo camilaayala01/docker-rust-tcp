@@ -1,5 +1,6 @@
 use std::net::{TcpListener, TcpStream};
 use std::io::{Read, Write};
+use std::net::{ToSocketAddrs};
 
 fn handle_client(mut stream: TcpStream) {
     let mut buffer = [0; 1024];
@@ -21,7 +22,12 @@ fn handle_client(mut stream: TcpStream) {
 }
 
 fn main() -> std::io::Result<()> {
-    let listener = TcpListener::bind("0.0.0.0:8080")?;
+    let addr = "tcp-server:8080"
+        .to_socket_addrs()?
+        .next()
+        .ok_or(std::io::Error::new(std::io::ErrorKind::Other, "Failed to resolve address"))?;
+    
+    let listener = TcpListener::bind(addr)?;
     println!("Server listening on port 8080");
 
     for stream in listener.incoming() {
